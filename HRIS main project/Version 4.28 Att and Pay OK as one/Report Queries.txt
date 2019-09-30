@@ -1,0 +1,293 @@
+************************************************************************************************************************************
+DECLARE @ST AS DATETIME
+DECLARE @ED AS DATETIME
+DECLARE @CMONTH AS INTEGER
+DECLARE @CYEAR AS INTEGER
+DECLARE @BRID AS NVARCHAR (4)
+DECLARE @CATID AS NVARCHAR (4)
+DECLARE @DEPTID AS NVARCHAR (4)
+SET @ST='20160201'
+SET @ED='20160201'
+SET @CMONTH='10'
+SET @BRID='001'
+SET @CYEAR='2016'
+SET @CATID='001'
+SET @DEPTID='001'
+
+************************************************************************************************************************************
+1. ABSENT REPORT FOR SELECTED BRANCH(S)
+---------------------------------------
+
+SELECT     dbo.tblEmployee.RegID,dbo.tblEmployee.EmpNo, dbo.tblEmployee.EpfNo, dbo.tblEmployee.EnrolNo,  dbo.tblEmployee.dispName,tblempregister.atDate, CASE WHEN tblempregister.AntStatus=1 THEN 'PR' ELSE 'AB' END AS 'PRStatus',
+                    dbo.tblDesig.desgDesc, dbo.tblSetDept.DeptName 
+FROM         dbo.tblEmployee LEFT OUTER JOIN
+                      dbo.tblCivilStatus ON dbo.tblEmployee.CivilStID = dbo.tblCivilStatus.StID LEFT OUTER JOIN
+                      dbo.tblDesig ON dbo.tblEmployee.DesigID = dbo.tblDesig.DesgID LEFT OUTER  JOIN
+                      dbo.tblGender ON dbo.tblEmployee.GenderID = dbo.tblGender.GenID LEFT OUTER  JOIN
+                      dbo.tblSetDept ON dbo.tblEmployee.DeptID = dbo.tblSetDept.DeptID LEFT OUTER  JOIN
+                      dbo.tblSetEmpType ON dbo.tblEmployee.EmpTypeID = dbo.tblSetEmpType.TypeID LEFT OUTER  JOIN
+                      dbo.tblCBranchs ON dbo.tblEmployee.brID = dbo.tblCBranchs.brID LEFT OUTER  JOIN
+dbo.tblempregister ON dbo.tblEmployee.RegID = dbo.tblempregister.EMPID
+WHERE tblempregister.atDate BETWEEN '20141001' AND '20141001' AND tblEmployee.compID = '001' AND tblEmployee.empStatus <> 9 
+AND tblempregister.ANTStatus=0 AND tblEmployee.brID IN ('002')
+ORDER BY dbo.tblSetDept.DeptName 
+************************************************************************************************************************************
+
+************************************************************************************************************************************
+2.ALL ACTIVE EMPLOYEE INFORMATION REPORT
+---------------------------------------
+
+SELECT     dbo.tblEmployee.EpfNo AS 'EPF No', dbo.tblEmployee.EnrolNo AS 'Enrol No', dbo.tblEmployee.RegDate AS 'Registered Date', dbo.tblEmployee.dispName AS 'Employee Name',dbo.tblEmployee.firstname + ' ' +dbo.tblEmployee.surName as 'Name in full', dbo.tblEmployee.NICNumber AS 'NIC Number' , CONVERT(VARCHAR(10),dbo.tblEmployee.DofB,101) AS 'BirthDay' ,  tblCbranchs.brName AS 'Branch Name',
+                      dbo.tblEmployee.homePhone AS 'Home Phone', dbo.tblEmployee.pMobile AS 'Mobile No', dbo.tblEmployee.OfficePhone AS 'Office No', dbo.tblEmployee.Email AS 'Email Address', dbo.tblCivilStatus.stDesc AS 'Civil Status', dbo.tblGender.GenDesc AS 'Gender', 
+                      dbo.tblDesig.desgDesc AS 'Designation', dbo.tblSetDept.DeptName AS 'Department', dbo.tblSetEmpType.tDesc  AS 'Employee Type',tblSEtEmpCategory.CatDesc AS 'Category',datediff(day,tblEmployee.RegDate,getdate ())/365 as 'Oldness in years',tblEmpAddress.Add1 AS 'Address Part 1',tblEmpAddress.Add2 AS 'Address Part 2',tblEmpAddress.Add3 AS 'Address Part3',tblPayrollEmployee.AccNumber AS 'Account Number'
+FROM         dbo.tblEmployee LEFT OUTER JOIN
+                      dbo.tblCivilStatus ON dbo.tblEmployee.CivilStID = dbo.tblCivilStatus.StID LEFT OUTER JOIN
+                     dbo.tblCbranchs ON dbo.tblEmployee.brID = dbo.tblCbranchs.BRID LEFT OUTER JOIN
+  dbo.tblDesig ON dbo.tblEmployee.DesigID = dbo.tblDesig.DesgID LEFT OUTER  JOIN
+                      dbo.tblGender ON dbo.tblEmployee.GenderID = dbo.tblGender.GenID LEFT OUTER  JOIN
+                      dbo.tblSetDept ON dbo.tblEmployee.DeptID = dbo.tblSetDept.DeptID LEFT OUTER  JOIN
+                      dbo.tblSetEmpType ON dbo.tblEmployee.EmpTypeID = dbo.tblSetEmpType.TypeID LEFT OUTER  JOIN
+              dbo.tblSEtEmpCategory ON dbo.tblEmployee.catID = dbo.tblSEtEmpCategory.catid LEFT OUTER  JOIN
+               dbo.tblEmpAddress ON dbo.tblEmployee.defAddID = dbo.tblEmpAddress.addID AND  tblEmployee.RegID=tblEmpAddress.EmpID LEFT OUTER  JOIN
+                     dbo.tblPayrollEmployee ON dbo.tblEmployee.RegID = dbo.tblPayrollEmployee.RegID
+WHERE tblEmployee.compID = '001' AND tblEmployee.empStatus <> 9 order by tblEmployee.epfno
+************************************************************************************************************************************
+
+
+************************************************************************************************************************************
+3.BIRTH DAY LIST FOR EACH MONTHS
+---------------------------------------
+
+select tblemployee.regid,tblemployee.epfno,tblemployee.ENROLNO,DATENAME(MONTH, tblemployee.dofb) as 'Month' ,tblemployee.dispName, tblemployee.nicnumber,tblemployee.dofb,tblCBranchs.BrName,tblSetDept.deptName,tblDesig.desgDesc from tblemployee  LEFT  JOIN tblCBranchs  ON Dbo.tblemployee.BrID = dbo.tblCBranchs.BrID LEFT OUTER JOIN  tblSetDept ON dbo.tblemployee.DeptID = dbo.tblSetDept.DeptID LEFT OUTER JOIN tblDesig ON  dbo.tblemployee.DesigID = dbo.tblDesig.DesgID  where  tblemployee.empstatus<>9  order by  DATEPART(mm, tblemployee.DofB),DATEPART(dd, tblemployee.DofB) 
+************************************************************************************************************************************
+
+************************************************************************************************************************************
+4.ABSENT LIST FOR DATE RANGE
+---------------------------------------
+
+SELECT     dbo.tblEmployee.EpfNo, dbo.tblEmployee.EnrolNo,tblEmployee.NICNumber,  dbo.tblEmployee.dispName,
+                    dbo.tblDesig.desgDesc, dbo.tblSetDept.DeptName ,convert(varchar, tblempregister.atDate, 111) 'AbsentDay', CASE WHEN tblempregister.AntStatus=1 THEN 'PRESENT' ELSE 'ABSENT' END AS 'PRStatus'
+FROM         dbo.tblEmployee LEFT OUTER JOIN
+                      dbo.tblCivilStatus ON dbo.tblEmployee.CivilStID = dbo.tblCivilStatus.StID LEFT OUTER JOIN
+                      dbo.tblDesig ON dbo.tblEmployee.DesigID = dbo.tblDesig.DesgID LEFT OUTER  JOIN
+                      dbo.tblGender ON dbo.tblEmployee.GenderID = dbo.tblGender.GenID LEFT OUTER  JOIN
+                      dbo.tblSetDept ON dbo.tblEmployee.DeptID = dbo.tblSetDept.DeptID LEFT OUTER  JOIN
+                      dbo.tblSetEmpType ON dbo.tblEmployee.EmpTypeID = dbo.tblSetEmpType.TypeID LEFT OUTER  JOIN
+                      dbo.tblCBranchs ON dbo.tblEmployee.brID = dbo.tblCBranchs.brID LEFT OUTER  JOIN
+dbo.tblempregister ON dbo.tblEmployee.RegID = dbo.tblempregister.EMPID
+WHERE tblempregister.atDate BETWEEN @ST AND @ED AND tblEmployee.compID = '001' AND tblEmployee.empStatus <> 9 
+AND tblempregister.ANTStatus=0 
+ORDER BY dbo.tblSetDept.DeptName
+************************************************************************************************************************************
+
+************************************************************************************************************************************
+5.ERROR CHECKING REPORT
+---------------------------------------
+
+SELECT    dbo.tblEmployee.RegID,  dbo.tblEmployee.EpfNo, dbo.tblEmployee.EnrolNo,tblEmployee.NICNumber,  dbo.tblEmployee.dispName,
+                    dbo.tblDesig.desgDesc, dbo.tblSetDept.DeptName ,convert(varchar, tblempregister.atDate, 111) 'AbsentDay', dbo.tblempregister.inTime1 as 'InTime',tblempregister.outTime1 'OutTime',tblempregister.workHrs as 'WorkHours'
+FROM         dbo.tblEmployee LEFT OUTER JOIN
+                      dbo.tblCivilStatus ON dbo.tblEmployee.CivilStID = dbo.tblCivilStatus.StID LEFT OUTER JOIN
+                      dbo.tblDesig ON dbo.tblEmployee.DesigID = dbo.tblDesig.DesgID LEFT OUTER  JOIN
+                      dbo.tblGender ON dbo.tblEmployee.GenderID = dbo.tblGender.GenID LEFT OUTER  JOIN
+                      dbo.tblSetDept ON dbo.tblEmployee.DeptID = dbo.tblSetDept.DeptID LEFT OUTER  JOIN
+                      dbo.tblSetEmpType ON dbo.tblEmployee.EmpTypeID = dbo.tblSetEmpType.TypeID LEFT OUTER  JOIN
+                      dbo.tblCBranchs ON dbo.tblEmployee.brID = dbo.tblCBranchs.brID LEFT OUTER  JOIN
+dbo.tblempregister ON dbo.tblEmployee.RegID = dbo.tblempregister.EMPID
+WHERE tblempregister.atDate BETWEEN @ST AND @ED AND tblEmployee.compID = '001' AND tblEmployee.empStatus <> 9 
+AND tblempregister.ANTStatus=1 AND  tblempregister.WORKHrs<3
+ORDER BY dbo.tblSetDept.DeptName
+************************************************************************************************************************************
+
+************************************************************************************************************************************
+6.OT COSTING REPORT WITH ALL INFOMATION
+---------------------------------------
+
+SELECT    dbo.tblEmployee.RegID,  dbo.tblEmployee.EpfNo, dbo.tblEmployee.EnrolNo,tblEmployee.NICNumber,  dbo.tblEmployee.dispName,
+                    dbo.tblDesig.desgDesc, dbo.tblSetDept.DeptName ,
+convert(varchar, tblempregister.atDate, 111) 'AttendanceDay', dbo.tblempregister.inTime1 as 'InTime',tblempregister.outTime1 'OutTime',
+tblempregister.workHrs as 'WorkHours' ,tblleavetype.lvDesc,tblempregister.NormalOTHrs as 'NormalOT'
+--,tblPayrollemployee.BasicSalary,(tblPayrollemployee.BasicSalary+1000)/240 as 'OTRate',(tblPayrollemployee.BasicSalary+1000)/240*tblempregister.NormalOTHrs
+FROM         dbo.tblEmployee LEFT OUTER JOIN
+                      dbo.tblCivilStatus ON dbo.tblEmployee.CivilStID = dbo.tblCivilStatus.StID LEFT OUTER JOIN
+                      dbo.tblDesig ON dbo.tblEmployee.DesigID = dbo.tblDesig.DesgID LEFT OUTER  JOIN
+                      dbo.tblGender ON dbo.tblEmployee.GenderID = dbo.tblGender.GenID LEFT OUTER  JOIN
+                      dbo.tblSetDept ON dbo.tblEmployee.DeptID = dbo.tblSetDept.DeptID LEFT OUTER  JOIN
+                      dbo.tblSetEmpType ON dbo.tblEmployee.EmpTypeID = dbo.tblSetEmpType.TypeID LEFT OUTER  JOIN
+                      dbo.tblCBranchs ON dbo.tblEmployee.brID = dbo.tblCBranchs.brID LEFT OUTER  JOIN
+dbo.tblempregister ON dbo.tblEmployee.RegID = dbo.tblempregister.EMPID
+ LEFT OUTER  JOIN dbo.tblleavetype ON dbo.tblempregister.leaveID = dbo.tblleavetype.LVID
+-- LEFT OUTER  JOIN dbo.tblPayrollemployee ON dbo.tblPayrollemployee.regID = dbo.tblEmployee.regID
+WHERE tblempregister.atDate BETWEEN @ST AND @ED AND tblEmployee.compID = '001' AND tblEmployee.empStatus <> 9 
+--AND tblempregister.ANTStatus=0 
+----AND  tblempregister.WORKHrs<3
+--AND tblPayrollemployee.BasicSalary<>0
+ORDER BY dbo.tblSetDept.DeptName
+************************************************************************************************************************************
+
+
+
+
+************************************************************************************************************************************
+7.FULL ATTENDANCE INFOMATION
+---------------------------------------
+
+SELECT      dbo.tblEmployee.EmpNo,dbo.tblEmployee.EpfNo, dbo.tblEmployee.EnrolNo,  dbo.tblEmployee.dispName,
+                    CONVERT(VARCHAR(10),tblempregister.atDate,101) AS 'At Date',CONVERT(VARCHAR(5), tblempregister.intime1,108) AS 'In Time', 
+CONVERT(VARCHAR(5), tblempregister.outTime1,108) AS 'Out Time',CASE WHEN tblempregister.AntStatus=1 THEN 'PRESENT' ELSE 'ABSENT' END AS 'PRStatus',
+CASE WHEN tblEmpregister.workHrs>9 THEN 9 ELSE tblEmpregister.workHrs END AS 'Work Hours',tblEmpregister.COTHrs,CASE WHEN tblEmpregister.workHrs<>0 THEN 1 ELSE 0 END as 'Lunch Hour',
+tblEmpregister.workHrs AS 'Tot Hours' ,datename(weekday,tblempregister.atDate)AS 'Day',tblempregister.nrWorkDay AS 'Work Day',tblempregister.lateMins AS 'Late Minutes'
+FROM         dbo.tblEmployee LEFT OUTER JOIN
+                      dbo.tblCivilStatus ON dbo.tblEmployee.CivilStID = dbo.tblCivilStatus.StID LEFT OUTER JOIN
+                      dbo.tblDesig ON dbo.tblEmployee.DesigID = dbo.tblDesig.DesgID LEFT OUTER  JOIN
+                      dbo.tblGender ON dbo.tblEmployee.GenderID = dbo.tblGender.GenID LEFT OUTER  JOIN
+                      dbo.tblSetDept ON dbo.tblEmployee.DeptID = dbo.tblSetDept.DeptID LEFT OUTER  JOIN
+                      dbo.tblSetEmpType ON dbo.tblEmployee.EmpTypeID = dbo.tblSetEmpType.TypeID LEFT OUTER  JOIN
+                      dbo.tblCBranchs ON dbo.tblEmployee.brID = dbo.tblCBranchs.brID LEFT OUTER  JOIN
+dbo.tblempregister ON dbo.tblEmployee.RegID = dbo.tblempregister.EMPID
+WHERE tblempregister.atDate BETWEEN @ST AND @ED AND tblEmployee.compID = '001' AND tblEmployee.empStatus <> 9 
+ORDER BY tblEmployee.EmpNo,dbo.tblSetDept.DeptName
+************************************************************************************************************************************
+
+
+************************************************************************************************************************************
+8.FULL EMPLOYEE PROFILE INFOMATION FOR PAYROLL
+---------------------------------------
+SELECT     dbo.tblEmployee.EpfNo, dbo.tblEmployee.EnrolNo, CONVERT(VARCHAR(10),tblEmployee.regDate,101) AS 'Joining Date', dbo.tblEmployee.dispName as 'Display Name',dbo.tblSetTitle.titleDesc as 'Title',dbo.tblEmployee.firstname as 'First Name',dbo.tblEmployee.surName as 'Last Name', dbo.tblEmployee.NICNumber, CONVERT(VARCHAR(10),dbo.tblEmployee.DofB,101) AS 'BirthDay' ,  
+                      dbo.tblEmployee.homePhone, dbo.tblEmployee.pMobile as 'Mobile', dbo.tblEmployee.OfficePhone, dbo.tblEmployee.Email, dbo.tblCivilStatus.stDesc as 'Civil Status',tblEmployee.civilStID, dbo.tblGender.GenDesc as 'Gender', tblEmployee.GenderID,
+                      dbo.tblDesig.desgDesc as 'Designation', tblEmployee.desigID,dbo.tblSetDept.DeptName as 'Department',tblEmployee.deptID, dbo.tblSetEmpType.tDesc AS 'Employee Type',tblEmployee.empTypeID,tblSEtEmpCategory.CatDesc 'Category', tblEmployee.catID,tblcBranchs.brName as 'Branch Name' ,tblEmployee.brID,dbo.tblPayrollEmployee.BasicSalary,datediff(day,tblEmployee.RegDate,getdate ())/365 as 'Oldness in years',tblEmpAddress.Add1,tblEmpAddress.Add2,tblEmpAddress.Add3,tblPayrollEmployee.AccNumber,CONVERT(VARCHAR(10),tblEmployee.statusDate,101) as 'Resign Date',CASE WHEN tblEmployee.empStatus=9 THEN 'Resigned' ELSE 'Active' END AS 'Status'
+					  ,tblBanks.bankName AS 'Bank Name',tblBranches.branchName AS 'Branch Name'
+FROM         dbo.tblEmployee LEFT OUTER JOIN
+                      dbo.tblCivilStatus ON dbo.tblEmployee.CivilStID = dbo.tblCivilStatus.StID LEFT OUTER JOIN
+                      dbo.tblDesig ON dbo.tblEmployee.DesigID = dbo.tblDesig.DesgID LEFT OUTER  JOIN
+                      dbo.tblGender ON dbo.tblEmployee.GenderID = dbo.tblGender.GenID LEFT OUTER  JOIN
+                      dbo.tblSetDept ON dbo.tblEmployee.DeptID = dbo.tblSetDept.DeptID LEFT OUTER  JOIN
+                       dbo.tblSetTitle ON dbo.tblEmployee.TitleID = dbo.tblSetTitle.TitleID LEFT OUTER  JOIN
+                        dbo.tblcBranchs ON dbo.tblEmployee.brID = dbo.tblcBranchs.brID LEFT OUTER  JOIN
+                    dbo.tblSetEmpType ON dbo.tblEmployee.EmpTypeID = dbo.tblSetEmpType.TypeID LEFT OUTER  JOIN
+              dbo.tblSEtEmpCategory ON dbo.tblEmployee.catID = dbo.tblSEtEmpCategory.catid LEFT OUTER  JOIN
+               dbo.tblEmpAddress ON dbo.tblEmployee.defAddID = dbo.tblEmpAddress.addID AND  tblEmployee.RegID=tblEmpAddress.EmpID LEFT OUTER  JOIN
+                     dbo.tblPayrollEmployee ON dbo.tblEmployee.RegID = dbo.tblPayrollEmployee.RegID LEFT OUTER JOIN 
+					 tblBanks ON tblPayrollEmployee.bankid=tblBanks.BankID LEFT OUTER JOIN
+					 tblBranches ON tblPayrollEmployee.BranchID=tblBranches.brID AND tblPayrollEmployee.bankID=tblBranches.bankID 
+WHERE tblEmployee.compID = '001' AND tblEmployee.empStatus <> 9 order by tblEmployee.epfno
+
+************************************************************************************************************************************
+
+
+************************************************************************************************************************************
+9.CREATE DATAMATION TRANSFER TABLE
+---------------------------------------
+CREATE TABLE employedata ([EmpNo] [char](10) NOT NULL primary key,[DepName] [char](250) NOT NULL,[Catname] [char](250), [Designame] [char](250) ,[Gradename] [char](250) ,[etname] [char](250) , [EPFNO] [char](10) NOT NULL,	[Activests] [bit] NOT NULL,		[Fundssts] [bit] NOT NULL,	[eftsts] [bit] NOT NULL,	[Banksts] [bit] NOT NULL,	[PAYEsts] [bit] NOT NULL,	[Anupaye] [bit] NOT NULL,	[NationalID] [char](20) NOT NULL,[SerName] [char](550) NOT NULL,[Initials] [char](520) NOT NULL,[Title] [char](5) NOT NULL,[Civilsts] [char](2) NOT NULL,[Sex] [char](6) NOT NULL,[Address1] [char](550) NOT NULL,[Address2] [char](550) NOT NULL,[Address3] [char](550) NOT NULL,[Telephone] [char](30) NOT NULL,[Contper] [char](50) NOT NULL,[TmpAdd1] [char](20) NOT NULL,[TmpAdd2] [char](20) NOT NULL,[TmpAdd3] [char](20) NOT NULL,[passport] [char](12) NOT NULL,[Issueddate] [datetime] NOT NULL,[Neename] [char](20) NOT NULL,[Datejoin] [datetime] NOT NULL,[termidate] [datetime] NOT NULL, [BirthDate] [datetime] NOT NULL,[MSBankCode] [char](10) NOT NULL,[MSAccNo] [char](20) NOT NULL,[MSBanksts] [bit] NOT NULL,[BasicSal] [numeric](18, 2) NOT NULL)
+
+
+--ADD ACTIVE EMPLOYEES TO TRANSFER TABLE
+---------------------------------------
+DELETE FROM employedata;
+INSERT INTO employedata
+SELECT     isnull(dbo.tblEmployee.empNO,' '),isnull(dbo.tblSetDept.DeptName,' ') as 'Department', tblcBranchs.brName as 'Branch Name' ,dbo.tblDesig.desgDesc as 'Designation',tblSEtEmpCategory.CatDesc 'Category',dbo.tblSetEmpType.tDesc AS 'Employee Type', dbo.tblEmployee.EPFNo,convert(numeric(18,0),tblEmployee.empStatus),0,0,0,0,0,tblEmployee.NICNumber,dbo.tblEmployee.surName as 'Ser Name',dbo.tblEmployee.firstname as 'Initial', isnull(dbo.tblSetTitle.titleDesc,'Mr') as 'Title',  
+CONVERT(NUMERIC (18,0),tblEmployee.civilStID)  , isnull(dbo.tblGender.GenDesc,'Male') as 'Sex',isnull(tblEmpAddress.Add1,'-'),isnull(tblEmpAddress.Add2,'-'),isnull(tblEmpAddress.Add3,'-'),dbo.tblEmployee.pMobile,'','','','','','19000101','',CONVERT(VARCHAR(10),tblEmployee.regDate,112) ,CONVERT(VARCHAR(10),tblEmployee.statusDate,112) as 'Resign Date',CONVERT(VARCHAR(10),dbo.tblEmployee.DofB,112) AS 'BirthDay' , isnull( tblPayrollEmployee.bankID,0),isnull(tblPayrollEmployee.AccNumber,0),isnull(tblPayrollEmployee.finalSalary,0),isnull(dbo.tblPayrollEmployee.BasicSalary,0)
+FROM         dbo.tblEmployee LEFT OUTER JOIN
+                      dbo.tblCivilStatus ON dbo.tblEmployee.CivilStID = dbo.tblCivilStatus.StID LEFT OUTER JOIN
+                      dbo.tblDesig ON dbo.tblEmployee.DesigID = dbo.tblDesig.DesgID LEFT OUTER  JOIN
+                      dbo.tblGender ON dbo.tblEmployee.GenderID = dbo.tblGender.GenID LEFT OUTER  JOIN
+                      dbo.tblSetDept ON dbo.tblEmployee.DeptID = dbo.tblSetDept.DeptID LEFT OUTER  JOIN
+                       dbo.tblSetTitle ON dbo.tblEmployee.TitleID = dbo.tblSetTitle.TitleID LEFT OUTER  JOIN
+                        dbo.tblcBranchs ON dbo.tblEmployee.brID = dbo.tblcBranchs.brID LEFT OUTER  JOIN
+                    dbo.tblSetEmpType ON dbo.tblEmployee.EmpTypeID = dbo.tblSetEmpType.TypeID LEFT OUTER  JOIN
+              dbo.tblSEtEmpCategory ON dbo.tblEmployee.catID = dbo.tblSEtEmpCategory.catid LEFT OUTER  JOIN
+               dbo.tblEmpAddress ON dbo.tblEmployee.defAddID = dbo.tblEmpAddress.addID AND  tblEmployee.RegID=tblEmpAddress.EmpID LEFT OUTER  JOIN
+                     dbo.tblPayrollEmployee ON dbo.tblEmployee.RegID = dbo.tblPayrollEmployee.RegID
+WHERE tblEmployee.compID = '001' AND tblEmployee.empStatus <> 9 order by tblEmployee.epfno
+
+--ADD RESIGNED EMPLOYEES ON PAYROLL MONTH
+---------------------------------------
+INSERT INTO employedata
+SELECT     isnull(dbo.tblEmployee.empNO,' '),isnull(dbo.tblSetDept.DeptName,' ') as 'Department', tblcBranchs.brName as 'Branch Name' ,dbo.tblDesig.desgDesc as 'Designation',tblSEtEmpCategory.CatDesc 'Category',dbo.tblSetEmpType.tDesc AS 'Employee Type', dbo.tblEmployee.EPFNo,convert(numeric(18,0),tblEmployee.empStatus),0,0,0,0,0,tblEmployee.NICNumber,dbo.tblEmployee.surName as 'Ser Name',dbo.tblEmployee.firstname as 'Initial', isnull(dbo.tblSetTitle.titleDesc,'Mr') as 'Title',  
+CONVERT(NUMERIC (18,0),tblEmployee.civilStID)  , isnull(dbo.tblGender.GenDesc,'Male') as 'Sex',isnull(tblEmpAddress.Add1,'-'),isnull(tblEmpAddress.Add2,'-'),isnull(tblEmpAddress.Add3,'-'),dbo.tblEmployee.pMobile,'','','','','','19000101','',CONVERT(VARCHAR(10),tblEmployee.regDate,112) ,CONVERT(VARCHAR(10),tblEmployee.statusDate,112) as 'Resign Date',CONVERT(VARCHAR(10),dbo.tblEmployee.DofB,112) AS 'BirthDay' , isnull( tblPayrollEmployee.bankID,0),isnull(tblPayrollEmployee.AccNumber,0),isnull(tblPayrollEmployee.finalSalary,0),isnull(dbo.tblPayrollEmployee.BasicSalary,0)
+FROM         dbo.tblEmployee LEFT OUTER JOIN
+                      dbo.tblCivilStatus ON dbo.tblEmployee.CivilStID = dbo.tblCivilStatus.StID LEFT OUTER JOIN
+                      dbo.tblDesig ON dbo.tblEmployee.DesigID = dbo.tblDesig.DesgID LEFT OUTER  JOIN
+                      dbo.tblGender ON dbo.tblEmployee.GenderID = dbo.tblGender.GenID LEFT OUTER  JOIN
+                      dbo.tblSetDept ON dbo.tblEmployee.DeptID = dbo.tblSetDept.DeptID LEFT OUTER  JOIN
+                       dbo.tblSetTitle ON dbo.tblEmployee.TitleID = dbo.tblSetTitle.TitleID LEFT OUTER  JOIN
+                        dbo.tblcBranchs ON dbo.tblEmployee.brID = dbo.tblcBranchs.brID LEFT OUTER  JOIN
+                    dbo.tblSetEmpType ON dbo.tblEmployee.EmpTypeID = dbo.tblSetEmpType.TypeID LEFT OUTER  JOIN
+              dbo.tblSEtEmpCategory ON dbo.tblEmployee.catID = dbo.tblSEtEmpCategory.catid LEFT OUTER  JOIN
+               dbo.tblEmpAddress ON dbo.tblEmployee.defAddID = dbo.tblEmpAddress.addID AND  tblEmployee.RegID=tblEmpAddress.EmpID LEFT OUTER  JOIN
+                     dbo.tblPayrollEmployee ON dbo.tblEmployee.RegID = dbo.tblPayrollEmployee.RegID
+WHERE tblEmployee.compID = '001' AND tblEmployee.statusdate BETWEEN @ST and @ED AND tblEmployee.empStatus=9 order by tblEmployee.epfno
+
+--DELETE NEWLY JOINED EMPLOYEES FROM SUMMARY TABLE
+---------------------------------------
+DELETE FROM employedata
+WHERE  employedata.dateJoin > @ED
+
+************************************************************************************************************************************
+
+
+************************************************************************************************************************************
+10.YEARLY SUMMARY
+---------------------------------------
+CREATE TABLE #NopayList (EmpID Nvarchar (6),dispName Nvarchar (100),AbsDays Numeric (18,2),TotLv Numeric (18,2),TotNopay Numeric (18,2),TotWorked numeric (18,2),totLateMins numeric (18,2),totNormalOT numeric (18,2),totWorkedHrs numeric (18,2))
+INSERT INTO #NopayList Select tblEmployee.RegID,tblEmployee.DispName,Sum(AutoLeaveNo),0,0,sum(nrworkday),sum(latemins),sum(normalOTHrs),sum(workHrs) From tblEmployee,tblEmpRegister WHERE tblEmployee.RegiD = tblEmpRegister.EmpID AND tblEmpRegister.AtDate Between @st AND  @ed GROUP BY tblEmployee.RegID,tblEmployee.DispName
+
+CREATE TABLE #T (EmpID Nvarchar (6),NoVal Numeric (18,2))
+INSERT INTO #T SELECT tblLeaveTRD.EmpID ,Sum(tblLeaveTRD.NoLeave) FROM tblLeaveTRD WHERE LvDate Between @st AND @ed AND tblLeaveTRD.lvType<>009 AND tblLeaveTRD.Status = 0 GROUP By EmpID  
+UPDATE #NopayList SET #NopayList.TotLv = #T.NoVal FROM #T,#NopayList WHERE #t.EmpID =#NopayList.EmpID
+
+UPDATE #NopayList SET TotNopay = CASE WHEN (AbsDays - TotLv) < 0 THEN 0 ELSE (AbsDays - TotLv) END
+
+SELECT TBLEMPLOYEE.EPFNO,#NopayList.* FROM #NopayList,TBLEMPLOYEE WHERE TBLEMPLOYEE.REGID=#NopayList.EMPID AND TBLEMPLOYEE.EMPSTATUS<>9 and tblemployee.regdate<'20160105' Order By #NopayList.absDays
+************************************************************************************************************************************
+
+
+************************************************************************************************************************************
+11.RESIGNED LIST FOR DATE RANGE
+---------------------------------------
+SELECT     dbo.tblEmployee.EpfNo AS 'EPF No', dbo.tblEmployee.EnrolNo AS 'Enrol No', dbo.tblEmployee.RegDate AS 'Registered Date', TBLEMPLOYEE.rReason AS 'resign Reason',dbo.tblEmployee.dispName AS 'Employee Name',dbo.tblEmployee.STATUSdATE AS 'Resigned Date', dbo.tblEmployee.NICNumber AS 'NIC Number' , CONVERT(VARCHAR(10),dbo.tblEmployee.DofB,101) AS 'BirthDay' ,  tblCbranchs.brName AS 'Branch Name',
+                      dbo.tblEmployee.OfficePhone AS 'Office No', dbo.tblEmployee.Email AS 'Email Address', dbo.tblCivilStatus.stDesc AS 'Civil Status', dbo.tblGender.GenDesc AS 'Gender', 
+                      dbo.tblDesig.desgDesc AS 'Designation', dbo.tblSetDept.DeptName AS 'Department', dbo.tblSetEmpType.tDesc  AS 'Employee Type',tblSEtEmpCategory.CatDesc AS 'Category',datediff(day,tblEmployee.RegDate,getdate ())/365 as 'Oldness in years'
+FROM         dbo.tblEmployee LEFT OUTER JOIN
+                      dbo.tblCivilStatus ON dbo.tblEmployee.CivilStID = dbo.tblCivilStatus.StID LEFT OUTER JOIN
+                     dbo.tblCbranchs ON dbo.tblEmployee.brID = dbo.tblCbranchs.BRID LEFT OUTER JOIN
+  dbo.tblDesig ON dbo.tblEmployee.DesigID = dbo.tblDesig.DesgID LEFT OUTER  JOIN
+                      dbo.tblGender ON dbo.tblEmployee.GenderID = dbo.tblGender.GenID LEFT OUTER  JOIN
+                      dbo.tblSetDept ON dbo.tblEmployee.DeptID = dbo.tblSetDept.DeptID LEFT OUTER  JOIN
+                      dbo.tblSetEmpType ON dbo.tblEmployee.EmpTypeID = dbo.tblSetEmpType.TypeID LEFT OUTER  JOIN
+              dbo.tblSEtEmpCategory ON dbo.tblEmployee.catID = dbo.tblSEtEmpCategory.catid LEFT OUTER  JOIN
+                   dbo.tblremphist ON dbo.tblEmployee.RegID = dbo.tblremphist.RegID LEFT OUTER  JOIN
+          dbo.tblEmpAddress ON dbo.tblEmployee.defAddID = dbo.tblEmpAddress.addID AND  tblEmployee.RegID=tblEmpAddress.EmpID LEFT OUTER  JOIN
+                     dbo.tblPayrollEmployee ON dbo.tblEmployee.RegID = dbo.tblPayrollEmployee.RegID
+WHERE tblEmployee.compID = '001' AND tblEmployee.empStatus= 9 and dbo.tblremphist.resDate between @ST AND @ED AND  tblEmployee.brID=@BRID  order by tblEmployee.epfno
+************************************************************************************************************************************
+
+
+************************************************************************************************************************************
+12.MONTHLY SUMMARY WITH DEPARTMENTS
+---------------------------------------
+select tblMonthlySummary.EmpID,tblEmployee.EPFNo,tblEmployee.dispName,tblcBranchs.brName,tblSetDept.deptName, tblMonthlySummary.NOTHrs AS 'Normal OT',tblMonthlySummary.DOTHrs AS 'Special OT' from tblMonthlySummary,tblEmployee,tblCBranchs,tblSetDept WHERE tblEmployee.brID=tblCBranchs.brID AND tblEmployee.Regid=tblMonthlySummary.EmpID AND  tblSetDept.deptID=tblEmployee.deptID AND tblMonthlySummary.cYear=2017 AND tblMonthlySummary.cMonth=9 ORDER BY
+tblcBranchs.brName,tblEmployee.EPFNo
+************************************************************************************************************************************
+
+
+************************************************************************************************************************************
+13.MANUALY ADDED RECORDS LOG
+---------------------------------------
+select tbldimachinemanual.empID AS 'Reg ID',tblEmployee.empNo  AS 'Emp No',tblEmployee.dispName  AS 'Employee Name', CONVERT(VARCHAR(20), tbldimachinemanual.cdate,102) AS 'Attendance Date',CONVERT(VARCHAR(8), tbldimachinemanual.cTime,108) AS 'Punch Time',CONVERT(VARCHAR(20), tbldimachinemanual.crdate,102) AS 'Added Date',CONVERT(VARCHAR(8), tbldimachinemanual.crdate,108) AS 'Added Time',tblusers.userName AS 'Added By' from tbldimachinemanual,tblEmployee,tblUsers
+where tbldimachinemanual.EmpID=tblEmployee.EnrolNo AND tbldimachinemanual.crUser=tblusers.userID AND tbldimachinemanual.cDate between @ST and @ED
+ORDER BY  tbldimachinemanual.crDate, tbldimachinemanual.EmpID
+************************************************************************************************************************************
+
+************************************************************************************************************************************
+14.MANUALY ADDED RECORDS DETAILY
+---------------------------------------
+select tblemployee.regid,tblemployee.epfno,tblemployee.ENROLNO,DATENAME(MONTH, tblemployee.dofb) as 'Month' 
+,tblemployee.dispName, tblemployee.nicnumber,tblemployee.dofb,tblCBranchs.BrName,tblSetDept.deptName,tblDesig.desgDesc
+ from tblemployee  LEFT  JOIN tblCBranchs  ON Dbo.tblemployee.BrID = dbo.tblCBranchs.BrID LEFT OUTER JOIN  tblSetDept 
+ ON dbo.tblemployee.DeptID = dbo.tblSetDept.DeptID LEFT OUTER JOIN tblDesig ON  dbo.tblemployee.DesigID = dbo.tblDesig.DesgID 
+  where  tblemployee.empstatus<>9  AND 
+  DATEADD( Year, DATEPART( Year, GETDATE()) - DATEPART( Year, tblemployee.dofb), tblemployee.dofb)
+  BETWEEN CONVERT( DATETIME, @ST) 
+  AND CONVERT( DATETIME, @ED)
+  order by  DATEPART(mm, tblemployee.DofB),DATEPART(dd, tblemployee.DofB)  

@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DST_Report" targetNamespace="http://tempuri.org/DST_Report.xsd" xmlns:mstns="http://tempuri.org/DST_Report.xsd" xmlns="http://tempuri.org/DST_Report.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="DST_Report" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:Generator_DataSetName="DST_Report" msprop:Generator_UserDSName="DST_Report" msprop:EnableTableAdapterManager="true">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="EmpReqDed" msprop:Generator_UserTableName="EmpReqDed" msprop:Generator_RowDeletedName="EmpReqDedRowDeleted" msprop:Generator_TableClassName="EmpReqDedDataTable" msprop:Generator_RowChangedName="EmpReqDedRowChanged" msprop:Generator_RowClassName="EmpReqDedRow" msprop:Generator_RowChangingName="EmpReqDedRowChanging" msprop:Generator_RowEvArgName="EmpReqDedRowChangeEvent" msprop:Generator_RowEvHandlerName="EmpReqDedRowChangeEventHandler" msprop:Generator_TablePropName="EmpReqDed" msprop:Generator_TableVarName="tableEmpReqDed" msprop:Generator_RowDeletingName="EmpReqDedRowDeleting">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ReQID" msprop:Generator_UserColumnName="ReQID" msprop:Generator_ColumnPropNameInRow="ReQID" msprop:Generator_ColumnVarNameInTable="columnReQID" msprop:Generator_ColumnPropNameInTable="ReQIDColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="Salary_x0020_Item" msprop:Generator_UserColumnName="Salary Item" msprop:Generator_ColumnPropNameInRow="Salary_Item" msprop:Generator_ColumnVarNameInTable="columnSalary_Item" msprop:Generator_ColumnPropNameInTable="Salary_ItemColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="RegID_x0020_" msprop:Generator_UserColumnName="RegID " msprop:Generator_ColumnPropNameInRow="RegID_" msprop:Generator_ColumnVarNameInTable="columnRegID_" msprop:Generator_ColumnPropNameInTable="RegID_Column" type="xs:string" minOccurs="0" />
+              <xs:element name="EpfNo" msprop:Generator_UserColumnName="EpfNo" msprop:Generator_ColumnPropNameInRow="EpfNo" msprop:Generator_ColumnVarNameInTable="columnEpfNo" msprop:Generator_ColumnPropNameInTable="EpfNoColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="EmpNo" msprop:Generator_UserColumnName="EmpNo" msprop:Generator_ColumnPropNameInRow="EmpNo" msprop:Generator_ColumnVarNameInTable="columnEmpNo" msprop:Generator_ColumnPropNameInTable="EmpNoColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="Name" msprop:Generator_UserColumnName="Name" msprop:Generator_ColumnPropNameInRow="Name" msprop:Generator_ColumnVarNameInTable="columnName" msprop:Generator_ColumnPropNameInTable="NameColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="BankAccount" msprop:Generator_UserColumnName="BankAccount" msprop:Generator_ColumnPropNameInRow="BankAccount" msprop:Generator_ColumnVarNameInTable="columnBankAccount" msprop:Generator_ColumnPropNameInTable="BankAccountColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="Branch" msprop:Generator_UserColumnName="Branch" msprop:Generator_ColumnPropNameInRow="Branch" msprop:Generator_ColumnVarNameInTable="columnBranch" msprop:Generator_ColumnPropNameInTable="BranchColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="Payslip_x0020_Des" msprop:Generator_UserColumnName="Payslip Des" msprop:Generator_ColumnPropNameInRow="Payslip_Des" msprop:Generator_ColumnVarNameInTable="columnPayslip_Des" msprop:Generator_ColumnPropNameInTable="Payslip_DesColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="Reason" msprop:Generator_UserColumnName="Reason" msprop:Generator_ColumnPropNameInRow="Reason" msprop:Generator_ColumnVarNameInTable="columnReason" msprop:Generator_ColumnPropNameInTable="ReasonColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="Approved_x0020_By" msprop:Generator_UserColumnName="Approved By" msprop:Generator_ColumnPropNameInRow="Approved_By" msprop:Generator_ColumnVarNameInTable="columnApproved_By" msprop:Generator_ColumnPropNameInTable="Approved_ByColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="Amount" msprop:Generator_UserColumnName="Amount" msprop:Generator_ColumnPropNameInRow="Amount" msprop:Generator_ColumnVarNameInTable="columnAmount" msprop:Generator_ColumnPropNameInTable="AmountColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="FromDate" msprop:Generator_UserColumnName="FromDate" msprop:Generator_ColumnPropNameInRow="FromDate" msprop:Generator_ColumnVarNameInTable="columnFromDate" msprop:Generator_ColumnPropNameInTable="FromDateColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="toDate" msprop:Generator_UserColumnName="toDate" msprop:Generator_ColumnPropNameInRow="toDate" msprop:Generator_ColumnVarNameInTable="columntoDate" msprop:Generator_ColumnPropNameInTable="toDateColumn" type="xs:string" minOccurs="0" />
+              <xs:element name="SalItmID" msprop:Generator_UserColumnName="SalItmID" msprop:Generator_ColumnPropNameInRow="SalItmID" msprop:Generator_ColumnVarNameInTable="columnSalItmID" msprop:Generator_ColumnPropNameInTable="SalItmIDColumn" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

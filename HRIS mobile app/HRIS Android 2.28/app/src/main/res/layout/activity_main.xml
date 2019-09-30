@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fillViewport="false"
+    android:orientation="vertical"
+    android:padding="2dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView20"
+            style="@android:style/Widget.DeviceDefault.Light.TextView.SpinnerItem"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginBottom="1dp"
+            android:background="@color/colorPrimary"
+            android:gravity="right"
+            android:text="Main menu"
+            android:textAlignment="center"
+            android:textColor="@android:color/background_light"
+            android:textSize="22sp" />
+
+
+        <RelativeLayout
+            android:id="@+id/rellayk1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/grad"
+            android:paddingTop="10dp"
+            android:paddingBottom="20dp">
+
+            <RelativeLayout
+                android:id="@+id/imgUser"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true">
+
+                <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/profile_image"
+                    android:layout_width="116dp"
+                    android:layout_height="116dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/kasun"
+                    app:civ_border_color="#FF000000"
+                    app:civ_border_width="2dp" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/imgUser"
+                android:layout_centerHorizontal="true"
+                android:fontFamily="sans-serif-light"
+                android:text="Kasun Hasitha"
+                android:textColor="@color/white"
+                android:textSize="28dp" />
+
+            <TextView
+                android:id="@+id/tv_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_name"
+                android:layout_centerHorizontal="true"
+                android:fontFamily="sans-serif"
+                android:text="IT manager"
+                android:textAllCaps="true"
+                android:textColor="@color/address"
+                android:textSize="14dp" />
+
+            <ImageButton
+                android:layout_width="40dp"
+                android:id="@+id/btnSetting"
+                android:layout_height="40dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"
+                android:adjustViewBounds="true"
+                android:scaleType="centerInside"
+                android:background="@android:color/transparent"
+                app:srcCompat="@drawable/cld"/>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/linlayk12"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rellay1"
+            android:layout_marginBottom="28dp"
+            android:baselineAligned="false"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:id="@+id/leftRel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:background="@color/followers"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tvLastSync"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-light"
+                        android:paddingLeft="22dp"
+                        android:text="453K"
+                        android:textColor="@color/white"
+                        android:textSize="22dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-light"
+                        android:paddingLeft="25dp"
+                        android:text="Last Synced"
+                        android:textColor="@color/white"
+                        android:textSize="12dp" />
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:background="@color/followingBg"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tvDaysFrLast"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-light"
+                        android:paddingLeft="25dp"
+                        android:text="878"
+                        android:textColor="@color/white"
+                        android:textSize="22dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-light"
+                        android:paddingLeft="25dp"
+                        android:text="Data Gap"
+                        android:textColor="@color/white"
+                        android:textSize="12dp" />
+
+                </LinearLayout>
+
+            </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="88dp"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/btnProfile"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:gravity="center_horizontal"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/btnprofile" />
+
+
+            <ImageButton
+                android:id="@+id/btnLeave"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:gravity="center_horizontal"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/btnleave" />
+
+            <ImageButton
+                android:id="@+id/btnLeaveReq"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:gravity="center_horizontal"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/btnleave" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="22dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/lblProf"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:gravity="center_horizontal"
+                android:scaleType="fitCenter"
+                android:text="Profile" />
+
+
+            <TextView
+                android:id="@+id/lblLv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:gravity="center_horizontal"
+                android:scaleType="fitCenter"
+                android:text="Leave Apply" />
+
+
+            <TextView
+                android:id="@+id/lblLvDsb"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:gravity="center_horizontal"
+                android:scaleType="fitCenter"
+                android:text="Leave Hist" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="88dp"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/btnTimeCard"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:gravity="center_horizontal"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/btntimecard" />
+
+            <ImageButton
+                android:id="@+id/btnPaySlip"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:gravity="center_horizontal"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/btnpayslip" />
+
+            <ImageButton
+                android:id="@+id/btnDashboard"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:gravity="center_horizontal"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/brndashboard" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="22dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/lblTimCrd"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:gravity="center_horizontal"
+                android:scaleType="fitCenter"
+                android:text="Time Card" />
+
+
+            <TextView
+                android:id="@+id/lblPays"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:gravity="center_horizontal"
+                android:scaleType="fitCenter"
+                android:text="Paylip" />
+
+
+            <TextView
+                android:id="@+id/lblNotifi"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:gravity="center_horizontal"
+                android:scaleType="fitCenter"
+                android:text="Settings" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>

@@ -1,0 +1,2 @@
+*Add new main form according to the photoshop design that designed by we three.
+*Add new setup all in one screen

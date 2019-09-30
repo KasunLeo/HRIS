@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="1dp"
+    android:fillViewport="false">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView"
+        app:srcCompat="@drawable/assignmentheading07"
+        android:layout_marginBottom="10dp"
+        android:contentDescription="TODO" />
+
+    <TextView
+        android:id="@+id/textView20"
+        style="@android:style/Widget.DeviceDefault.Light.TextView.SpinnerItem"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginBottom="8dp"
+        android:background="@color/colorPrimary"
+        android:gravity="center"
+        android:text="My Profile"
+        android:textAlignment="center"
+        android:textColor="@android:color/background_light"
+        android:textSize="22sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="166dp"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/btnlogin"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:gravity="center_horizontal"
+                android:scaleType="fitCenter"
+                android:layout_marginBottom="28dp"
+                app:srcCompat="@drawable/ic_user" />
+
+        </LinearLayout>
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="44dp">
+
+            <TextView
+                android:id="@+id/txtNameH"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="56dp"
+                android:layout_marginBottom="8dp"
+                android:text="Name"
+                android:textSize="17sp" />
+
+            <TextView
+                android:id="@+id/texsp1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=":" />
+
+            <TextView
+                android:id="@+id/txtName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="D K H K Weerasinghe"
+                android:textSize="17sp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="44dp">
+            <TextView
+                android:id="@+id/txtDeptH"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="56dp"
+                android:text="Department" />
+
+            <TextView
+            android:id="@+id/txtSp2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=":" />
+
+            <TextView
+                android:id="@+id/txtDept"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="IT" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="44dp">
+            <TextView
+                android:id="@+id/txtDesigH"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="56dp"
+                android:text="Designation" />
+
+            <TextView
+                android:id="@+id/txtSp3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=":" />
+
+            <TextView
+                android:id="@+id/txtDesig"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="IT Manager" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="44dp">
+
+            <TextView
+                android:id="@+id/txtBranchH"
+                android:layout_width="107dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="56dp"
+                android:text="Branch" />
+
+            <TextView
+                android:id="@+id/txtSp4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=":" />
+
+            <TextView
+                android:id="@+id/txtBranch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Colombo Branch" />
+        </TableRow>
+
+
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="44dp">
+
+            <TextView
+                android:id="@+id/txtEpfNoH"
+                android:layout_width="107dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="56dp"
+                android:text="EPF No" />
+
+            <TextView
+                android:id="@+id/txtSp5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=":" />
+
+            <TextView
+                android:id="@+id/txtEpfNo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="000006" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="44dp">
+
+            <TextView
+                android:id="@+id/txtNicH"
+                android:layout_width="107dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="56dp"
+                android:text="NIC No" />
+
+            <TextView
+                android:id="@+id/txtSp6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=":" />
+
+            <TextView
+                android:id="@+id/txtNic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Colombo Branch" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="44dp">
+
+            <TextView
+                android:id="@+id/txtGenH"
+                android:layout_width="107dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="56dp"
+                android:text="Gender" />
+
+            <TextView
+                android:id="@+id/txtSp7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=":" />
+
+            <TextView
+                android:id="@+id/txtGen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Male" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="44dp">
+
+            <TextView
+                android:id="@+id/txtBdateH"
+                android:layout_width="107dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="56dp"
+                android:text="Birth Date" />
+
+            <TextView
+                android:id="@+id/txtSp8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=":" />
+
+            <TextView
+                android:id="@+id/txtBDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1989 Dec 31" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="44dp">
+
+            <TextView
+                android:id="@+id/txtJoinD"
+                android:layout_width="107dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="56dp"
+                android:text="Joined Date" />
+
+            <TextView
+                android:id="@+id/txtSp9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=":" />
+
+            <TextView
+                android:id="@+id/txtJoin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2019 June 05" />
+        </TableRow>
+    </TableLayout>
+    </LinearLayout>
+</ScrollView>

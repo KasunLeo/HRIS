@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Leave_data">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/textView20"
+            style="@android:style/Widget.DeviceDefault.Light.TextView.SpinnerItem"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginBottom="1dp"
+            android:background="@drawable/gradlg"
+            android:gravity="right"
+            android:text="Leave Data"
+            android:textAlignment="center"
+            android:textColor="@android:color/background_light"
+            android:textSize="22sp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/gradlg">
+
+            <LinearLayout
+                android:id="@+id/top"
+                android:layout_width="match_parent"
+                android:layout_height="148dp"
+                android:baselineAligned="false"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:id="@+id/leftRelb"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="1"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentBottom="true"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
+
+                        <antonkozyriatskyi.circularprogressindicator.CircularProgressIndicator
+                            android:id="@+id/circular_progress3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginStart="34dp"
+                            android:layout_marginTop="22dp"
+                            android:layout_marginEnd="22dp"
+                            android:layout_marginBottom="22dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="1"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
+
+                        <antonkozyriatskyi.circularprogressindicator.CircularProgressIndicator
+                            android:id="@+id/circular_progress1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginStart="34dp"
+                            android:layout_marginTop="22dp"
+                            android:layout_marginEnd="22dp"
+                            android:layout_marginBottom="22dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lnMid1"
+                android:layout_width="match_parent"
+                android:layout_height="28dp"
+                android:layout_below="@+id/top"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/lblan"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    android:gravity="center_horizontal"
+                    android:scaleType="fitCenter"
+                    android:text="Annual Leave"
+                    android:textColor="@color/white"
+                    android:textSize="19dp" />
+
+
+                <TextView
+                    android:id="@+id/lblcasual"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    android:gravity="center_horizontal"
+                    android:scaleType="fitCenter"
+                    android:text="Casual Leave"
+                    android:textColor="@color/white"
+                    android:textSize="19dp" />
+                />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lnMid2"
+                android:layout_width="match_parent"
+                android:layout_height="148dp"
+                android:layout_below="@id/lnMid1"
+                android:baselineAligned="false"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:id="@+id/leftRelbb"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
+
+                        <antonkozyriatskyi.circularprogressindicator.CircularProgressIndicator
+                            android:id="@+id/circular_progress4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginStart="34dp"
+                            android:layout_marginTop="22dp"
+                            android:layout_marginEnd="22dp"
+                            android:layout_marginBottom="22dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
+
+                        <antonkozyriatskyi.circularprogressindicator.CircularProgressIndicator
+                            android:id="@+id/circular_progress5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginStart="34dp"
+                            android:layout_marginTop="22dp"
+                            android:layout_marginEnd="22dp"
+                            android:layout_marginBottom="22dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lnmid3"
+                android:layout_width="match_parent"
+                android:layout_height="33dp"
+                android:layout_below="@+id/lnMid2"
+                android:layout_marginBottom="5dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    android:gravity="center_horizontal"
+                    android:scaleType="fitCenter"
+                    android:text="Vacation Leave"
+                    android:textColor="@color/white"
+                    android:textSize="19dp" />
+
+
+                <TextView
+                    android:id="@+id/lblSic"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    android:gravity="center_horizontal"
+                    android:scaleType="fitCenter"
+                    android:text="Sick Leave"
+                    android:textColor="@color/white"
+                    android:textSize="19dp" />
+                />
+
+            </LinearLayout>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="88dp"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/btnTimeCard"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:gravity="center_horizontal"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/btna"
+                />
+
+            <ImageButton
+                android:id="@+id/btnPaySlip"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:gravity="center_horizontal"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/btna" />
+
+            <ImageButton
+                android:id="@+id/btnDashboard"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:gravity="center_horizontal"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/btna" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/lblTimCrd"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:gravity="center_horizontal"
+                android:scaleType="fitCenter"
+                android:text="Taken"
+                android:textSize="16dp" />
+
+
+            <TextView
+                android:id="@+id/lblPays"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:gravity="center_horizontal"
+                android:scaleType="fitCenter"
+                android:text="Balance"
+                android:textSize="16dp" />
+
+
+            <TextView
+                android:id="@+id/lblNotifi"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:gravity="center_horizontal"
+                android:scaleType="fitCenter"
+                android:text="Pending"
+                android:textSize="16dp" />
+
+        </LinearLayout>
+
+        <RelativeLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="256dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.github.mikephil.charting.charts.PieChart
+                    android:id="@+id/pieChart"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"></com.github.mikephil.charting.charts.PieChart>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+</ScrollView>

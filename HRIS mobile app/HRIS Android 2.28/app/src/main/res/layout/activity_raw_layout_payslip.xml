@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="horizontal" android:layout_width="fill_parent"
+        android:layout_height="40dp">
+
+        <TextView
+            android:id="@+id/payslipMonth"
+            android:layout_width="74dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="5dp"
+            android:gravity="left"
+            android:text="Month"
+            android:textColor="@color/colorPrimary" />
+
+        <TextView
+            android:layout_width="1dp"
+            android:layout_height="fill_parent"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:id="@+id/textView4"
+            android:background="#ffe9e9e9" />
+
+        <TextView
+            android:id="@+id/payslipItem"
+            android:layout_width="202dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="5dp"
+            android:gravity="center|left"
+            android:text="Salary Componant"
+            android:textColor="@color/colorPrimary" />
+
+        <TextView
+            android:layout_width="1dp"
+            android:layout_height="fill_parent"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:id="@+id/textView5"
+            android:background="#ffe9e9e9" />
+
+        <TextView
+            android:id="@+id/payslipAmount"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="5dp"
+            android:gravity="left"
+            android:text="Amount"
+            android:textColor="@color/colorPrimary" />
+
+    </LinearLayout>
+
+</LinearLayout>

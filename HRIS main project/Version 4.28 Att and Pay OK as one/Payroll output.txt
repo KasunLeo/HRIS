@@ -1,0 +1,174 @@
+WorkingDays
+
+CREATE TABLE #T (EmpID Nvarchar (6),NoVal Numeric (18,2))
+INSERT INTO #T SELECT tblEmpRegister.EmpID,Sum(tblDayType.Workunit) FROM tblEmpRegister,tblDayType WHERE tblEmpRegister.DayTypeID = tblDayType.TypeID AND tblEmpRegister.AtDate Between @st AND @ed GROUP by tblEmpRegister.EmpID
+UPDATE tblMonthlySummary SET tblMonthlySummary.WorkingDays = #T.NoVal FROM #T,tblMonthlySummary WHERE #T.EmpID = tblMonthlySummary.EmpID
+
+
+WorkedDays 
+
+CREATE TABLE #T (EmpID Nvarchar (6),NoVal Numeric (18,2))
+INSERT INTO #T SELECT EmpID,Sum(NrWorkDay) FROM tblEmpRegister WHERE AtDate Between @st AND @ed GROUP by EmpID
+UPDATE tblMonthlySummary SET tblMonthlySummary.WorkedDays = #T.NoVal FROM #T,tblMonthlySummary WHERE #T.EmpID = tblMonthlySummary.EmpID
+
+
+EntOffDays
+
+CREATE TABLE #T (EmpID Nvarchar (6),NoVal Numeric (18,2))
+INSERT INTO #T SELECT tblEmpRegister.EmpID,count(tblDayType.Workunit) FROM tblEmpRegister,tblDayType WHERE tblEmpRegister.DayTypeID = tblDayType.TypeID AND tblEmpRegister.AtDate Between @st AND @ed AND tblDayType.workunit=0 GROUP by tblEmpRegister.EmpID
+UPDATE tblMonthlySummary SET tblMonthlySummary.EntOffDays   = #T.NoVal FROM #T,tblMonthlySummary WHERE #T.EmpID = tblMonthlySummary.EmpID
+
+
+NpAuto
+
+CREATE TABLE #T (EmpID Nvarchar (6),NoVal Numeric (18,2))
+INSERT INTO #T SELECT tblEmpRegister.EmpID,sum(tblEmpRegister.AutoLeaveNo) FROM tblEmpRegister WHERE tblEmpRegister.AtDate Between @st AND @ed  GROUP by tblEmpRegister.EmpID
+UPDATE tblMonthlySummary SET tblMonthlySummary.NpAuto = #T.NoVal FROM #T,tblMonthlySummary WHERE #T.EmpID = tblMonthlySummary.EmpID
+
+
+NPLeave
+
+CREATE TABLE #T (EmpID Nvarchar (6),NoVal Numeric (18,2))
+INSERT INTO #T 
+SELECT tblLeaveTRD.EmpID,sum(tblLeaveTRD.NoLeave) FROM tblLeaveTRD,tblLeaveTRH WHERE tblLeaveTRD.rqID=tblLeaveTRH.rqID AND tblLeaveTRD.empID =tblLeaveTRH.empID  AND tblLeaveTRD.lvDate Between @st AND @ed AND tblLeaveTRD.LvType=007 AND tblLeaveTRH.status=0 
+GROUP by tblLeaveTRD.EmpID
+UPDATE tblMonthlySummary SET tblMonthlySummary.NPLeave = #T.NoVal FROM #T,tblMonthlySummary WHERE #T.EmpID = tblMonthlySummary.EmpID
+
+
+TotLeave
+
+CREATE TABLE #T (EmpID Nvarchar (6),NoVal Numeric (18,2))
+INSERT INTO #T 
+SELECT tblLeaveTRD.EmpID,sum(tblLeaveTRD.NoLeave) FROM tblLeaveTRD,tblLeaveTRH WHERE tblLeaveTRD.rqID=tblLeaveTRH.rqID AND tblLeaveTRD.empID =tblLeaveTRH.empID  AND tblLeaveTRD.lvDate Between @st AND @ed  AND tblLeaveTRH.status=0 
+GROUP by tblLeaveTRD.EmpID
+UPDATE tblMonthlySummary SET tblMonthlySummary.TotLeave = #T.NoVal FROM #T,tblMonthlySummary WHERE #T.EmpID = tblMonthlySummary.EmpID
+
+
+NOTHrs
+
+CREATE TABLE #T (EmpID Nvarchar (6),NoVal Numeric (18,2))
+INSERT INTO #T SELECT tblEmpRegister.EmpID,sum(tblEmpRegister.normalOTHrs) FROM tblEmpRegister WHERE tblEmpRegister.AtDate Between @st AND @ed  GROUP by tblEmpRegister.EmpID
+UPDATE tblMonthlySummary SET tblMonthlySummary.NOTHrs = #T.NoVal FROM #T,tblMonthlySummary WHERE #T.EmpID = tblMonthlySummary.EmpID
+
+
+DOTHrs
+
+CREATE TABLE #T (EmpID Nvarchar (6),NoVal Numeric (18,2))
+INSERT INTO #T SELECT tblEmpRegister.EmpID,sum(tblEmpRegister.doubleOTHrs) FROM tblEmpRegister WHERE tblEmpRegister.AtDate Between @st AND @ed  GROUP by tblEmpRegister.EmpID
+UPDATE tblMonthlySummary SET tblMonthlySummary.DOTHrs = #T.NoVal FROM #T,tblMonthlySummary WHERE #T.EmpID = tblMonthlySummary.EmpID
+
+
+TOTHrs
+
+CREATE TABLE #T (EmpID Nvarchar (6),NoVal Numeric (18,2))
+INSERT INTO #T SELECT tblEmpRegister.EmpID,sum(tblEmpRegister.tripleOTHrs) FROM tblEmpRegister WHERE tblEmpRegister.AtDate Between @st AND @ed  GROUP by tblEmpRegister.EmpID
+UPDATE tblMonthlySummary SET tblMonthlySummary.TOTHrs = #T.NoVal FROM #T,tblMonthlySummary WHERE #T.EmpID = tblMonthlySummary.EmpID
+
+
+TotDueHrs
+
+CREATE TABLE #T (EmpID Nvarchar (6),NoVal Numeric (18,2))
+INSERT INTO #T SELECT tblEmpRegister.EmpID,sum(tblEmpRegister.divmin) FROM tblEmpRegister WHERE tblEmpRegister.AtDate Between @st AND @ed  GROUP by tblEmpRegister.EmpID
+UPDATE tblMonthlySummary SET tblMonthlySummary.TotDueHrs= #T.NoVal FROM #T,tblMonthlySummary WHERE #T.EmpID = tblMonthlySummary.EmpID
+
+
+medicalLeave
+
+CREATE TABLE #T (EmpID Nvarchar (6),NoVal Numeric (18,2))
+INSERT INTO #T 
+SELECT tblLeaveTRD.EmpID,sum(tblLeaveTRD.NoLeave) FROM tblLeaveTRD,tblLeaveTRH WHERE tblLeaveTRD.rqID=tblLeaveTRH.rqID AND tblLeaveTRD.empID =tblLeaveTRH.empID  AND tblLeaveTRD.lvDate Between @st AND @ed AND tblLeaveTRD.LvType=003 AND tblLeaveTRH.status=0 
+GROUP by tblLeaveTRD.EmpID
+UPDATE tblMonthlySummary SET tblMonthlySummary.medicalLeave= #T.NoVal FROM #T,tblMonthlySummary WHERE #T.EmpID = tblMonthlySummary.EmpID
+
+
+LateHours
+CREATE TABLE #T (EmpID Nvarchar (6),NoVal Numeric (18,2))
+INSERT INTO #T SELECT tblEmpRegister.EmpID,sum(tblEmpRegister.LateMins)/60 FROM tblEmpRegister WHERE tblEmpRegister.AtDate Between @st AND @ed AND tblEmpRegister.DayTypeID Not In (4,5,6)  and LateMins <1000 GROUP by tblEmpRegister.EmpID
+UPDATE tblMonthlySummary SET tblMonthlySummary.LateHours = #T.NoVal FROM #T,tblMonthlySummary WHERE #T.EmpID = tblMonthlySummary.EmpID
+
+
+JoinedAttAlov
+CREATE TABLE #T (EmpID Nvarchar (6),joinL Numeric (18,2),JoinRes NUMERIC (18,2),jionDate datetime,resignDate datetime,Absent numeric (18,2))
+INSERT INTO #T 
+SELECT tblemployee.REGID,DATEDIFF(day,tblemployee.regDate,@ed),DATEDIFF(day,tblemployee.REGDate,tblREmpHist.resdate),tblemployee.regDate,tblREmpHist.resdate,0 from tblemployee LEFT OUTER JOIN tblREmpHist ON tblemployee.regid=tblREmpHist.regid where tblemployee.regdate between @st and @ed
+
+CREATE TABLE #T1 (EmpID Nvarchar (6),absent1 Numeric (18,2))
+INSERT INTO #T1 
+SELECT tblEmpRegister.EmpID,sum(tblempregister.autoLeaveNO) FROM tblEmpRegister,#T WHERE 
+ tblEmpRegister.empid=#T.EmpID and tblEmpRegister.AtDate Between #T.jionDate AND #T.resigndate 
+GROUP by tblEmpRegister.EmpID
+
+CREATE TABLE #T2 (EmpID Nvarchar (6),absent2 Numeric (18,2))
+INSERT INTO #T2 
+SELECT tblEmpRegister.EmpID,sum(tblempregister.autoLeaveNO) FROM tblEmpRegister,#T WHERE 
+ tblEmpRegister.empid=#T.EmpID  and tblEmpRegister.AtDate  Between #T.jionDate AND @ed AND #T.resigndate is null
+GROUP by tblEmpRegister.EmpID
+
+update #T SET #T.absent=#T1.absent1 from #T,#T1 WHERE #T.empID=#T1.empid
+
+update #T SET #T.absent=#T2.absent2 from #T,#T2 WHERE #T.empID=#T2.empid
+
+UPDATE tblMonthlySummary SET tblMonthlySummary.JoinedAttAlov = 1 FROM #T,tblMonthlySummary WHERE #T.EmpID = tblMonthlySummary.EmpID and #T.absent=0
+
+ResignedMisdNopay
+CREATE TABLE #T (EmpID Nvarchar (6),NoVal Numeric (18,2))
+INSERT INTO #T SELECT tblEmpRegister.EmpID,COUNT(tblDayType.Workunit) FROM tblEmpRegister,tblDayType,tblREmpHist WHERE tblEmpRegister.DayTypeID = tblDayType.TypeID AND tblEmpRegister.AtDate Between tblREmpHist.resdate AND @ed AND  tblDayType.WORKUNIT=0 AND tblREmpHist.REGID=TBLEMPREGISTER.EmpID AND tblREmpHist.resdate between @st and @ed GROUP by tblEmpRegister.EmpID
+UPDATE tblMonthlySummary SET tblMonthlySummary.ResignedMisdNopay = #T.NoVal FROM #T,tblMonthlySummary WHERE #T.EmpID = tblMonthlySummary.EmpID
+
+JoinedMisdNopay
+CREATE TABLE #T (EmpID Nvarchar (6),NoVal Numeric (18,2))
+INSERT INTO #T SELECT tblEmpRegister.EmpID,COUNT(tblDayType.Workunit) FROM tblEmpRegister,tblDayType,TBLEMPLOYEE WHERE tblEmpRegister.DayTypeID = tblDayType.TypeID AND tblEmpRegister.AtDate Between @st AND tblemployee.regdate AND  tblDayType.WORKUNIT=0 AND TBLEMPLOYEE.REGID=TBLEMPREGISTER.EmpID AND TBLEMPLOYEE.regDate between @st and @ed GROUP by tblEmpRegister.EmpID
+UPDATE tblMonthlySummary SET tblMonthlySummary.JoinedMisdNopay = #T.NoVal FROM #T,tblMonthlySummary WHERE #T.EmpID = tblMonthlySummary.EmpID
+
+
+NightWorkDay
+CREATE TABLE #T (EmpID Nvarchar (6),NoVal Numeric (18,2))
+INSERT INTO #T SELECT EmpID,Sum(isNightWork) FROM tblEmpRegister WHERE AtDate Between @st AND @ed GROUP by EmpID
+UPDATE tblMonthlySummary SET tblMonthlySummary.NightWorkDay = #T.NoVal FROM #T,tblMonthlySummary WHERE #T.EmpID = tblMonthlySummary.EmpID
+
+
+FULL SUMMARY EXPORT
+
+SELECT [RegID]
+      ,[RegDate]
+      ,[TitleID]
+      ,[SurName]
+      ,[FirstName]
+      ,[dispName]
+      ,[NICNumber]
+      ,CASE WHEN [DofB] is null or [DofB]='' THEN '19000101' ELSE [DofB] END AS 'DofB'
+      ,CASE WHEN [GenderID]='' THEN '001' ELSE GenderID END AS 'GenderID'
+      ,CASE WHEN [CivilStID]='' THEN '001' ELSE [CivilStID] END AS 'CivilStID'
+      ,[EmpNo]
+      ,[EpfNo]
+      ,CASE WHEN [CompID]='' THEN '001' ELSE [CompID] END AS 'CompID'
+      ,CASE WHEN [DesigID]='' THEN '001' ELSE [DesigID] END AS 'DesigID'
+      ,CASE WHEN [BrID]='' THEN '001' ELSE [BrID] END AS 'BrID'
+      ,CASE WHEN [DeptID]='' THEN '001' ELSE [DeptID] END AS 'DeptID'
+      ,CASE WHEN [CatID]='' THEN '001' ELSE [CatID] END AS 'CatID'
+      ,CASE WHEN [EmpTypeID]='' THEN '001' ELSE [EmpTypeID] END AS 'EmpTypeID'
+      ,CASE WHEN [DefAddID]='' THEN '001' ELSE [DefAddID] END AS 'DefAddID'
+      ,[homePhone]
+      ,[pMobile]
+      ,[OfficePhone]
+      ,CASE WHEN [Email] is  null or [Email]='' THEN '@gmail.com' ELSE [Email] END AS 'Email'
+      ,[CntrPeriod]
+      ,CASE WHEN [ContractStart] is null or [ContractStart]='' THEN '19000101' ELSE [ContractStart] END AS 'ContractStart'
+      ,CASE WHEN [ContractEnd] is null or [ContractEnd]='' THEN '19000101' ELSE [ContractEnd] END AS 'ContractEnd'
+      ,[CardID]
+      ,CASE WHEN [StatusDate] is null or [StatusDate]='' THEN '19000101' ELSE [StatusDate] END AS 'StatusDate'
+      ,[NoAdds]
+      ,[EmpStatus]
+      ,[NoCards]
+      ,[EnrolNo]
+      ,[AtPrType]
+      ,CASE WHEN [wrkCode] is null or [wrkCode]='' THEN '001' ELSE [wrkCode] END AS 'wrkCode'
+      ,[IsEmpBOT]
+      ,CASE WHEN [GivenOff] is null or [GivenOff]='' THEN '0' ELSE [GivenOff] END AS [GivenOff]
+      ,CASE WHEN [confirmDate] is null or [confirmDate]='' THEN '19000101' ELSE [confirmDate] END AS 'confirmDate'
+      ,[empReqHours]
+      ,[isShifed]
+      ,CASE WHEN [f_Machine] is null or [f_Machine]='' THEN '001' ELSE [f_Machine] END AS 'f_Machine'
+      ,[MinWorkHrs],
+      CASE WHEN [sub_catid] is null or  [sub_catid]='' THEN '001' ELSE [sub_catid] END AS 'sub_catid' 
+  FROM [tblEmployee]
